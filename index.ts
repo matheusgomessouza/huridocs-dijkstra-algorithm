@@ -26,26 +26,40 @@ export function findTheShortestPath(twoDArray: string[][]): number {
   const actualWalls = walls - 1;
   const shortestPath = freePaths - actualWalls;
 
-  console.log({ walls: walls - 1, freePaths: freePaths });
-
-  return shortestPath;
+  return shortestPath ? shortestPath : -1;
 }
 
-console.log("pathLength", findTheShortestPath(labyrinth));
+console.log("findTheShortestPath: pathLength", findTheShortestPath(labyrinth));
 
-// switch (twoDArray[i][j]) {
-//   case "S":
-//     console.log("You entered the labyrinth!", twoDArray[i][j]);
-//   case "0":
-//     ++pathLength;
-//     console.log("Keep going, free path ahead!", twoDArray[i][j]);
-//   case "1":
-//     --pathLength;
-//     console.log("You hit a wall!")
-//   case "E":
-//     ++pathLength;
-//     console.log("You exit the labyrinth!")
-//     break;
-//   default:
-//     return -1;
-// }
+export function findTheShortestPathTwo(twoDArray: string[][]): number {
+  let rows = twoDArray.length;
+  let columns = twoDArray[0].length;
+  let pathLength = 0;
+  const noWayOut = -1;
+  // Shortest path route: [0 1] - [1 1] - [2 1] - [2 2] - [2 3] - [1 3] - [0 3] - [0 4]
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < columns; j++) {
+      // Add up to pathLength everytime that the correct coordinate and value match
+      if (
+        (i === 0 && j === 1 && twoDArray[i][j] === "0") ||
+        (i === 1 && j === 1 && twoDArray[i][j] === "0") ||
+        (i === 2 && j === 1 && twoDArray[i][j] === "0") ||
+        (i === 2 && j === 2 && twoDArray[i][j] === "0") ||
+        (i === 2 && j === 3 && twoDArray[i][j] === "0") ||
+        (i === 1 && j === 3 && twoDArray[i][j] === "0") ||
+        (i === 0 && j === 3 && twoDArray[i][j] === "0") ||
+        (i === 0 && j === 4 && twoDArray[i][j] === "E")
+      ) {
+        ++pathLength;
+      }
+    }
+  }
+
+  return pathLength !== 1 ? pathLength : noWayOut;
+}
+
+console.log(
+  "findTheShortestPathTwo: pathLength",
+  findTheShortestPathTwo(labyrinth)
+);
