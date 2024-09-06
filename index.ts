@@ -1,7 +1,7 @@
 const labyrinth: string[][] = [
   ["S", "0", "1", "0", "E"],
   ["1", "0", "1", "0", "1"],
-  ["1", "0", "0", "0", "0"],
+  ["1", "0", "0", "1", "0"],
   ["0", "0", "1", "1", "1"],
   ["0", "0", "0", "0", "0"],
 ];
@@ -69,9 +69,14 @@ export function findTheShortestPathThree(twoDArray: string[][]) {
   let columns = twoDArray[0].length;
   let pathLength = 0;
   const noWayOut = -1;
+  let isThereAnExit: boolean = false;
+  let isThereAnEntrance: boolean = false;
 
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < columns; j++) {
+      if (twoDArray[i][j] === "E") isThereAnExit = true;
+      if (twoDArray[i][j] === "S") isThereAnEntrance = true;
+
       if (twoDArray[i][j] === "1") {
         // Go back one column
         // Increase a row
@@ -92,7 +97,9 @@ export function findTheShortestPathThree(twoDArray: string[][]) {
     }
   }
 
-  return pathLength ? pathLength : noWayOut;
+  return pathLength && isThereAnExit && isThereAnEntrance
+    ? pathLength
+    : noWayOut;
 }
 
 console.log(

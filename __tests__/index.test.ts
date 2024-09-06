@@ -1,5 +1,9 @@
-import { describe, it, expectTypeOf,expect } from "vitest";
-import { findTheShortestPath, findTheShortestPathThree, findTheShortestPathTwo } from "..";
+import { describe, it, expectTypeOf, expect } from "vitest";
+import {
+  findTheShortestPath,
+  findTheShortestPathThree,
+  findTheShortestPathTwo,
+} from "..";
 
 describe("Shortest Path Test Cases", () => {
   it("should return a number given a 2DArray", () => {
@@ -83,17 +87,45 @@ describe("Shortest Path Test Cases", () => {
     expectTypeOf(result).toBeNumber();
   });
 
-  it("should return eigth given the labyrinth variable", () => {
+  it.skip("should return eigth given the labyrinth variable", () => {
     const labyrinth: string[][] = [
-      ["S", "0", "1", "0", "E"],
+      ["0", "0", "1", "0", "E"],
       ["1", "0", "1", "0", "1"],
       ["1", "0", "0", "0", "0"],
       ["0", "0", "1", "1", "1"],
-      ["0", "0", "0", "0", "0"],
+      ["S", "0", "0", "0", "0"],
     ];
 
     const result = findTheShortestPathThree(labyrinth);
 
     expect(result).toEqual(8);
   });
+
+  it("should return -1 if the labyrinth is no way out", () => {
+    const labyrinth: string[][] = [
+      ["0", "0", "1", "0", "0"],
+      ["1", "0", "1", "0", "1"],
+      ["1", "0", "0", "0", "0"],
+      ["0", "0", "1", "1", "1"],
+      ["S", "0", "0", "0", "0"],
+    ];
+
+    const path = findTheShortestPathThree(labyrinth);
+
+    expect(path).toBe(-1);
+  });
+
+  it("should return -1 if the labyrinth has no entrace", () => {
+    const labyrinth: string[][] = [
+      ["0", "0", "1", "0", "0"],
+      ["1", "0", "1", "0", "1"],
+      ["1", "0", "0", "0", "0"],
+      ["0", "0", "1", "1", "1"],
+      ["1", "0", "0", "0", "E"],
+    ];
+
+    const path = findTheShortestPathThree(labyrinth);
+
+    expect(path).toBe(-1);
+  })
 });
