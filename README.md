@@ -10,7 +10,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias / This project was de
 
 **💻 Projeto / Project**
 
-Algorithm to find the shortest in a 2D Array
+Algorithm to find the shortest path in a 2D Array
 
 ---
 
