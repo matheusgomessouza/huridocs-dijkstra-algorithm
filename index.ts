@@ -63,3 +63,39 @@ console.log(
   "findTheShortestPathTwo: pathLength",
   findTheShortestPathTwo(labyrinth)
 );
+
+export function findTheShortestPathThree(twoDArray: string[][]) {
+  let rows = twoDArray.length;
+  let columns = twoDArray[0].length;
+  let pathLength = 0;
+  const noWayOut = -1;
+
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < columns; j++) {
+      if (twoDArray[i][j] === "1") {
+        // Go back one column
+        // Increase a row
+        --j;
+        ++i;
+      } else if (
+        twoDArray[i].length - 1 === twoDArray[i].indexOf(twoDArray[i][j]) &&
+        twoDArray[i][j] === "0"
+      ) {
+        // If reaches the end of the child array and is a open path
+        // Go back one column
+        // Go back one row
+        --j;
+        --i;
+      } else {
+        ++pathLength;
+      }
+    }
+  }
+
+  return pathLength ? pathLength : noWayOut;
+}
+
+console.log(
+  "findTheShortestPathThree: pathLength",
+  findTheShortestPathThree(labyrinth)
+);
